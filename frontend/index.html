@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <meta
+      name="description"
+      content="AI-Powered Rural Enterprise Planning System: hyper-local business advisory and financial structuring for rural micro-entrepreneurs."
+    />
+    <title>AI-Powered Rural Enterprise Planning System</title>
+    <script>
+      // Stamp the theme before first paint, or the page flashes light before React mounts.
+      // UX4G reads data-theme on <html>; it has no fallback theme, so the attribute is always set.
+      try {
+        var c = localStorage.getItem('setubiz-theme')
+        var dark =
+          c === 'dark' ||
+          (c !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute('content', dark ? '#171717' : '#fafafa')
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

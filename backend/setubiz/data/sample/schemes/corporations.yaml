@@ -1,0 +1,98 @@
+# Apex corporations under MoSJE that on-lend through State Channelizing Agencies (SCAs).
+# Figures verified against the official portals; see PLAN.md §0.1-0.2.
+
+corporations:
+  - id: nsfdc
+    name: National Scheduled Castes Finance and Development Corporation
+    name_hi: राष्ट्रीय अनुसूचित जाति वित्त एवं विकास निगम
+    name_kn: ರಾಷ್ಟ್ರೀಯ ಪರಿಶಿಷ್ಟ ಜಾತಿ ಹಣಕಾಸು ಮತ್ತು ಅಭಿವೃದ್ಧಿ ನಿಗಮ
+    social_categories: [sc]
+    income_ceiling: 500000
+    income_ceiling_note: >-
+      Family income ceiling raised to ₹5.00 lakh per annum w.e.f. 07-01-2026 (PIB).
+    income_ceiling_note_kn: >-
+      07-01-2026 ರಿಂದ ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ ಮಿತಿಯನ್ನು ₹5.00 ಲಕ್ಷಕ್ಕೆ ಹೆಚ್ಚಿಸಲಾಗಿದೆ (ಪಿಐಬಿ).
+    max_loan: 4500000
+    finance_share: 0.90
+    portal: https://nsfdc.nic.in/
+    source: https://www.dosje.gov.in/schemes-and-services/micro-finance-scheme/
+
+  - id: nskfdc
+    name: National Safai Karamcharis Finance and Development Corporation
+    name_hi: राष्ट्रीय सफाई कर्मचारी वित्त एवं विकास निगम
+    name_kn: ರಾಷ್ಟ್ರೀಯ ಸಫಾಯಿ ಕರ್ಮಚಾರಿ ಹಣಕಾಸು ಮತ್ತು ಅಭಿವೃದ್ಧಿ ನಿಗಮ
+    social_categories: [safai_karamchari]
+    income_ceiling: null
+    income_ceiling_note: No income ceiling applies to safai karamcharis and their dependants.
+    income_ceiling_note_kn: ಸಫಾಯಿ ಕರ್ಮಚಾರಿಗಳಿಗೆ ಮತ್ತು ಅವರ ಅವಲಂಬಿತರಿಗೆ ಯಾವುದೇ ಆದಾಯ ಮಿತಿ ಅನ್ವಯಿಸುವುದಿಲ್ಲ.
+    max_loan: 1500000
+    finance_share: 0.90
+    portal: https://nskfdc.nic.in/
+    source: https://nskfdc.nic.in/en/schemes
+
+  - id: nbcfdc
+    name: National Backward Classes Finance and Development Corporation
+    name_hi: राष्ट्रीय पिछड़ा वर्ग वित्त एवं विकास निगम
+    name_kn: ರಾಷ್ಟ್ರೀಯ ಹಿಂದುಳಿದ ವರ್ಗಗಳ ಹಣಕಾಸು ಮತ್ತು ಅಭಿವೃದ್ಧಿ ನಿಗಮ
+    social_categories: [obc, ebc]
+    income_ceiling: 300000
+    income_ceiling_note: Annual family income ceiling of ₹3.00 lakh.
+    income_ceiling_note_kn: ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ ಮಿತಿ ₹3.00 ಲಕ್ಷ.
+    max_loan: 1500000
+    finance_share: 0.85
+    portal: https://nbcfdc.gov.in/
+    source: https://nbcfdc.gov.in/scheme/
+
+logics:
+  - id: nsfdc_micro_finance
+    corporation: nsfdc
+    name: Micro Finance Scheme
+    name_hi: सूक्ष्म वित्त योजना
+    project_cost_max: 140000
+    loan_cap: 125000
+    beneficiary_rate: 0.065
+    sca_rate: 0.025
+    tenure_years: 3
+    moratorium_months: 3
+    instalment_frequency: quarterly
+    source: https://www.dosje.gov.in/schemes-and-services/micro-finance-scheme/
+
+  - id: nsfdc_term_loan
+    corporation: nsfdc
+    name: Term Loan Scheme
+    name_hi: सावधि ऋण योजना
+    project_cost_max: 5000000
+    loan_cap: 4500000
+    beneficiary_rate: 0.080
+    sca_rate: 0.040
+    tenure_years: 7
+    moratorium_months: 6
+    moratorium_months_plantation: 12
+    instalment_frequency: quarterly
+    source: https://www.dosje.gov.in/schemes-and-services/2998/
+
+documents:
+  common:
+    - {en: Aadhaar card, hi: आधार कार्ड, kn: ಆಧಾರ್ ಕಾರ್ಡ್}
+    - {en: Caste certificate issued by the competent authority, hi: सक्षम प्राधिकारी द्वारा जारी जाति प्रमाण पत्र, kn: ಸಮರ್ಥ ಪ್ರಾಧಿಕಾರ ನೀಡಿದ ಜಾತಿ ಪ್ರಮಾಣಪತ್ರ}
+    - {en: Annual family income certificate, hi: वार्षिक पारिवारिक आय प्रमाण पत्र, kn: ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ}
+    - {en: Residence proof / domicile certificate, hi: निवास प्रमाण पत्र, kn: ವಾಸಸ್ಥಳದ ಪುರಾವೆ / ವಸತಿ ಪ್ರಮಾಣಪತ್ರ}
+    - {en: Passport-size photographs (4), hi: पासपोर्ट आकार की तस्वीरें (4), kn: ಪಾಸ್ಪೋರ್ಟ್ ಗಾತ್ರದ ಭಾವಚಿತ್ರಗಳು (4)}
+    - {en: Bank account passbook (first page), hi: बैंक पासबुक (पहला पृष्ठ), kn: ಬ್ಯಾಂಕ್ ಖಾತೆ ಪಾಸ್ಬುಕ್ (ಮೊದಲ ಪುಟ)}
+    - {en: Project report / unit cost estimate, hi: परियोजना रिपोर्ट, kn: ಯೋಜನಾ ವರದಿ / ಘಟಕ ವೆಚ್ಚದ ಅಂದಾಜು}
+    - {en: Quotation for machinery or livestock to be purchased, hi: मशीनरी/पशु का कोटेशन, kn: ಖರೀದಿಸಬೇಕಾದ ಯಂತ್ರೋಪಕರಣ ಅಥವಾ ಜಾನುವಾರುಗಳ ಕೊಟೇಶನ್}
+  by_corporation:
+    nskfdc:
+      - {en: Safai karamchari occupation certificate or dependant proof, hi: सफाई कर्मचारी व्यवसाय प्रमाण पत्र, kn: ಸಫಾಯಿ ಕರ್ಮಚಾರಿ ವೃತ್ತಿ ಪ್ರಮಾಣಪತ್ರ ಅಥವಾ ಅವಲಂಬಿತ ಪುರಾವೆ}
+    nbcfdc:
+      - {en: OBC/EBC certificate with non-creamy-layer declaration, hi: ओबीसी/ईबीसी प्रमाण पत्र, kn: ನಾನ್-ಕ್ರೀಮಿ ಲೇಯರ್ ಘೋಷಣೆ ಸಹಿತ ಓಬಿಸಿ/ಇಬಿಸಿ ಪ್ರಮಾಣಪತ್ರ}
+  by_activity:
+    dairy:
+      - {en: Cattle purchase quotation and veterinary fitness certificate, hi: पशु क्रय कोटेशन एवं पशु चिकित्सा प्रमाण पत्र, kn: ಜಾನುವಾರು ಖರೀದಿ ಕೊಟೇಶನ್ ಮತ್ತು ಪಶು ಆರೋಗ್ಯ ಪ್ರಮಾಣಪತ್ರ}
+      - {en: Proof of land or shed availability, hi: भूमि/शेड उपलब्धता प्रमाण, kn: ಜಾಗ ಅಥವಾ ಕೊಟ್ಟಿಗೆ ಲಭ್ಯತೆಯ ಪುರಾವೆ}
+    kirana:
+      - {en: Shop rent agreement or ownership proof, hi: दुकान किराया अनुबंध, kn: ಅಂಗಡಿ ಬಾಡಿಗೆ ಒಪ್ಪಂದ ಅಥವಾ ಮಾಲೀಕತ್ವದ ಪುರಾವೆ}
+      - {en: Trade licence from the gram panchayat, hi: ग्राम पंचायत व्यापार लाइसेंस, kn: ಗ್ರಾಮ ಪಂಚಾಯತ್ ವ್ಯಾಪಾರ ಪರವಾನಗಿ}
+    flour_mill:
+      - {en: Electricity load sanction letter, hi: बिजली भार स्वीकृति पत्र, kn: ವಿದ್ಯುತ್ ಲೋಡ್ ಮಂಜೂರಾತಿ ಪತ್ರ}
+      - {en: Gram panchayat NOC for the premises, hi: ग्राम पंचायत अनापत्ति प्रमाण पत्र, kn: ಆವರಣಕ್ಕೆ ಗ್ರಾಮ ಪಂಚಾಯತ್ ಎನ್ಒಸಿ}

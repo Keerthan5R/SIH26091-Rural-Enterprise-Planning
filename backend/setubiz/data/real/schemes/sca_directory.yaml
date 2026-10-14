@@ -1,0 +1,40 @@
+# State Channelizing Agencies: the actual counter a beneficiary walks into.
+# NSFDC/NSKFDC/NBCFDC do not lend directly; they on-lend through these bodies (PLAN.md §0.1).
+# Sample subset for the pilot geography; the real directory comes from the corporation portals.
+
+agencies:
+  - state: Jharkhand
+    state_code: JH
+    corporations: [nsfdc, nskfdc, nbcfdc]
+    name: Jharkhand State Scheduled Castes Co-operative Development Corporation Ltd.
+    name_hi: झारखंड राज्य अनुसूचित जाति सहकारी विकास निगम लिमिटेड
+    name_kn: ಜಾರ್ಖಂಡ್ ರಾಜ್ಯ ಪರಿಶಿಷ್ಟ ಜಾತಿ ಸಹಕಾರಿ ಅಭಿವೃದ್ಧಿ ನಿಗಮ ಲಿಮಿಟೆಡ್
+    address: Sector-2, Dhurwa, Ranchi 834004
+    channel: District Welfare Officer at the district collectorate
+  - state: Maharashtra
+    state_code: MH
+    corporations: [nsfdc, nbcfdc]
+    name: Mahatma Phule Backward Class Development Corporation Ltd.
+    name_hi: महात्मा फुले मागासवर्ग विकास महामंडळ
+    name_kn: ಮಹಾತ್ಮ ಫುಲೆ ಹಿಂದುಳಿದ ವರ್ಗ ಅಭಿವೃದ್ಧಿ ಮಹಾಮಂಡಳ
+    address: Juhu Supreme Shopping Centre, Gulmohar Cross Road 9, Mumbai 400049
+    channel: District office of the corporation
+  - state: Uttar Pradesh
+    state_code: UP
+    corporations: [nsfdc, nbcfdc]
+    name: U.P. Scheduled Castes Finance and Development Corporation Ltd.
+    name_hi: उत्तर प्रदेश अनुसूचित जाति वित्त एवं विकास निगम लिमिटेड
+    name_kn: ಉತ್ತರ ಪ್ರದೇಶ ಪರಿಶಿಷ್ಟ ಜಾತಿ ಹಣಕಾಸು ಮತ್ತು ಅಭಿವೃದ್ಧಿ ನಿಗಮ ಲಿಮಿಟೆಡ್
+    address: Indira Bhawan, Ashok Marg, Lucknow 226001
+    channel: District Manager, SC Finance Corporation
+  - state: Karnataka
+    state_code: KA
+    # SC agency. The Karnataka BC and Safai-Karamchari corporations are separate bodies and are not
+    # yet verified, so only nsfdc is listed. Source: https://adcl.karnataka.gov.in/en (approved by
+    # the user 2026-10-12); head office 080-22868870. Kannada name as printed on the official site.
+    corporations: [nsfdc]
+    name: Dr. B.R. Ambedkar Development Corporation Limited
+    name_hi: ಡಾ. ಬಿ.ಆರ್. ಅಂಬೇಡ್ಕರ್ ಅಭಿವೃದ್ದಿ ನಿಗಮ ನಿಯಮಿತ
+    name_kn: ಡಾ. ಬಿ.ಆರ್. ಅಂಬೇಡ್ಕರ್ ಅಭಿವೃದ್ಧಿ ನಿಗಮ ನಿಯಮಿತ
+    address: 9th & 10th Floor, Visweswaraiah Mini Tower, Dr. B.R. Ambedkar Veedhi, Bengaluru 560001
+    channel: District Manager at the district office; Taluk Development Officer at the Taluk Social Welfare Office

@@ -1,0 +1,30 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+// UX4G owns every component, token and utility in this app. Loaded once, here, per the package
+// contract: the package exports no React components, only CSS classes and a runtime side effect.
+import 'ux4g-web-components/styles.css'
+import 'ux4g-web-components/design-system'
+// UX4G embeds Noto Sans and the Material Icons faces but ships no Devanagari, so Hindi still
+// needs its own. The unicode-range keeps an English session from fetching these ~50 KB faces.
+import '@fontsource/noto-sans-devanagari/devanagari-400.css'
+import '@fontsource/noto-sans-devanagari/devanagari-600.css'
+// Kannada is a separate script/face, so it needs its own too; same unicode-range trick.
+import '@fontsource/noto-sans-kannada/kannada-400.css'
+import '@fontsource/noto-sans-kannada/kannada-600.css'
+import App from './App'
+import './app.css'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+// Offline shell: the service worker caches the app shell and every advisory report the user
+// opens, so a report link reopens with no network. Production-only registration keeps HMR clean;
+// a failed registration is not a broken app, the site just loses its offline shell.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {})
+  })
+}

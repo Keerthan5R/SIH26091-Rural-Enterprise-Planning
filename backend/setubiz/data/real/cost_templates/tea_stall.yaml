@@ -1,0 +1,35 @@
+id: tea_stall
+name: Tea and snack stall
+name_hi: चाय एवं नाश्ता स्टॉल
+name_kn: ಚಹಾ ಮತ್ತು ತಿಂಡಿ ಅಂಗಡಿ
+category: tea_stall
+unit: 1 stall
+activity_kind: general
+source: "SetuBiz unit economics compiled from PMEGP/NABARD service-sector cost norms (rural Jharkhand rates)"
+fixed_capital:
+  - {item: Tea kiosk, semi-pucca construction, item_hi: चाय की दुकान (अर्ध-पक्का), item_kn: "ಚಹಾ ಕಿಯೋಸ್ಕ್ (ಅರೆ-ಪಕ್ಕಾ)", amount: 60000, scaling: linear}
+  - {item: "Tea stove, kettle and urn set", item_hi: चूल्हा, केतली एवं भरपाई सेट, item_kn: "ಚಹಾ ಒಲೆ, ಕೆಟಲ್ ಮತ್ತು ಪಾತ್ರೆ ಸೆಟ್", amount: 8000, scaling: linear}
+  - {item: Utensils, crockery and glassware, item_hi: बर्तन एवं गिलास, item_kn: "ಪಾತ್ರೆ, ಕಪ್ ಮತ್ತು ಗಾಜು ಸಾಮಗ್ರಿ", amount: 6000, scaling: linear}
+  - {item: "Benches, tables and stall lighting", item_hi: बेंच, मेज एवं बिजली व्यवस्था, item_kn: "ಬೆಂಚ್, ಮೇಜು ಮತ್ತು ದೀಪ ವ್ಯವಸ್ಥೆ", amount: 9000, scaling: linear}
+  - {item: Signboard and paint, item_hi: साइनबोर्ड, item_kn: "ಸೈನ್ಬೋರ್ಡ್ ಮತ್ತು ಬಣ್ಣ", amount: 3000, scaling: fixed}
+working_capital_months: 1
+base_units: 1
+unit_label: stall
+unit_label_hi: स्टॉल
+unit_label_kn: ಸ್ಟಾಲ್
+unit_range: [1, 2]
+monthly_revenue:
+  - {item: "Tea, 3,600 cups @ ₹8", item_hi: चाय बिक्री, item_kn: "ಚಹಾ ಮಾರಾಟ, 3,600 ಕಪ್ @ ₹8", amount: 28800, scaling: linear}
+  - {item: Snacks and ready-to-eat packets, item_hi: नाश्ता एवं पैकेट, item_kn: "ತಿಂಡಿ ಮತ್ತು ಸಿದ್ಧ-ತಿನಿಸು ಪ್ಯಾಕೆಟ್", amount: 8000, scaling: linear}
+monthly_opex:
+  - {item: "Tea leaf, sugar and milk", item_hi: चाय पत्ती, चीनी एवं दूध, item_kn: "ಚಹಾ ಎಲೆ, ಸಕ್ಕರೆ ಮತ್ತು ಹಾಲು", amount: 13000, scaling: linear}
+  - {item: Snack and packet stock, item_hi: नाश्ता स्टॉक, item_kn: "ತಿಂಡಿ ಮತ್ತು ಪ್ಯಾಕೆಟ್ ಸ್ಟಾಕ್", amount: 5500, scaling: linear}
+  - {item: "Fuel (LPG and firewood)", item_hi: ईंधन, item_kn: "ಇಂಧನ (ಎಲ್ಪಿಜಿ ಮತ್ತು ಸೌದೆ)", amount: 2600, scaling: linear}
+  - {item: Imputed family labour, item_hi: श्रम, item_kn: "ಪರೋಕ್ಷ ಕುಟುಂಬ ಕಾರ್ಮಿಕ", amount: 4500, scaling: step, step_capacity: 2}
+  - {item: "Cups, cleaning and miscellaneous", item_hi: विविध, item_kn: "ಕಪ್, ಸ್ವಚ್ಛತೆ ಮತ್ತು ಇತರೆ", amount: 900, scaling: fixed}
+assumptions:
+  - 120 cups a day at the going rural rate of ₹8, built up from 40 customers passing three times a day.
+  - Snack income assumes 25 packets and loose items a day at a ₹25 average ticket.
+  - Milk is bought daily from the local dairy; its cost moves with the same demand the stall creates.
+  - One person runs one stall; a second stall needs the hired helper the labour line adds.
+  - Stock turns over weekly, so one month of working capital covers the purchase cycle.

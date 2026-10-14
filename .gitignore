@@ -1,0 +1,39 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+build/
+dist/
+
+node_modules/
+frontend/dist/
+
+.env
+facts.json
+.DS_Store
+
+frontend/tsconfig.tsbuildinfo
+
+# ETL inputs — multi-GB SHRUG/census extracts, never committed
+datasets/
+etl/.cache/
+
+# Local agent/session state and tooling artifacts
+.zcode/
+.vercel/
+*.log
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.vercel
+
+# private working docs
+SIH26091_Models_Architecture_Workflow.docx
+UX4G_CodeGen_Prompt_v1.md
+PLAN.md

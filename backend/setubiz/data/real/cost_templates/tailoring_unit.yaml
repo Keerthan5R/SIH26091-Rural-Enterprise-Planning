@@ -1,0 +1,32 @@
+id: tailoring_unit
+name: Tailoring unit with 2 machines
+name_hi: सिलाई इकाई, 2 मशीन
+name_kn: ಹೊಲಿಗೆ ಘಟಕ, 2 ಯಂತ್ರಗಳು
+category: tailoring
+unit: 2 sewing machines, 1 operator + 1 helper
+activity_kind: general
+source: "NABARD Model Bankable Project: Rural Tailoring / MoSJE skill-linked micro unit norms"
+fixed_capital:
+  - {item: 2 sewing machines with motor, item_hi: 2 सिलाई मशीन, item_kn: "2 ಹೊಲಿಗೆ ಯಂತ್ರಗಳು (ಮೋಟರ್ ಸಹಿತ)", amount: 34000, scaling: linear}
+  - {item: Overlock / interlock machine, item_hi: ओवरलॉक मशीन, item_kn: "ಓವರ್ಲಾಕ್/ಇಂಟರ್ಲಾಕ್ ಯಂತ್ರ", amount: 22000, scaling: step, step_capacity: 4}
+  - {item: "Cutting table, chairs, storage rack", item_hi: कटिंग टेबल एवं फर्नीचर, item_kn: "ಕಟಿಂಗ್ ಟೇಬಲ್, ಕುರ್ಚಿ, ಶೇಖರಣಾ ಕಡ್ಡಿ", amount: 14000, scaling: step, step_capacity: 4}
+  - {item: "Shop fit-out, wiring and signage", item_hi: दुकान सज्जा एवं वायरिंग, item_kn: "ಅಂಗಡಿ ಸಜ್ಜು, ವೈರಿಂಗ್ ಮತ್ತು ಸೈನ್ಬೋರ್ಡ್", amount: 18000, scaling: fixed}
+  - {item: "Iron, scissors, tools", item_hi: प्रेस एवं औज़ार, item_kn: "ಇಸ್ತ್ರಿ, ಕತ್ತರಿ, ಉಪಕರಣ", amount: 7000, scaling: step, step_capacity: 2}
+working_capital_months: 2
+base_units: 2
+unit_label: machine
+unit_label_hi: मशीन
+unit_label_kn: ಯಂತ್ರ
+unit_range: [1, 6]
+monthly_revenue:
+  - {item: "Stitching charges, 220 pieces @ ₹180", item_hi: सिलाई शुल्क, item_kn: "ಹೊಲಿಗೆ ಶುಲ್ಕ, 220 ತುಂಡುಗಳು @ ₹180", amount: 39600, scaling: linear}
+  - {item: "Fall-pico, alteration and repair work", item_hi: फॉल-पिको एवं मरम्मत, item_kn: "ಫಾಲ್-ಪಿಕೋ, ತಿದ್ದುಪಡಿ ಮತ್ತು ದುರಸ್ತಿ ಕೆಲಸ", amount: 4200, scaling: linear}
+monthly_opex:
+  - {item: "Cloth, thread, lining and trims", item_hi: कपड़ा एवं धागा, item_kn: "ಬಟ್ಟೆ, ದಾರ, ಲೈನಿಂಗ್ ಮತ್ತು ಟ್ರಿಮ್", amount: 15600, scaling: linear}
+  - {item: Helper wage, item_hi: सहायक मजदूरी, item_kn: "ಸಹಾಯಕ ವೇತನ", amount: 7000, scaling: step, step_capacity: 2}
+  - {item: Shop rent, item_hi: दुकान किराया, item_kn: "ಅಂಗಡಿ ಬಾಡಿಗೆ", amount: 3000, scaling: fixed}
+  - {item: Electricity and maintenance, item_hi: बिजली एवं रखरखाव, item_kn: "ವಿದ್ಯುತ್ ಮತ್ತು ನಿರ್ವಹಣೆ", amount: 1400, scaling: linear}
+assumptions:
+  - 220 garments/month at a rural stitching rate; festive months run 40-60% higher.
+  - Owner's own labour is not charged to opex; helper wage is.
+  - Sized in machines. One overlock machine and one cutting table serve up to four; the rent is for the shop, not the machine.

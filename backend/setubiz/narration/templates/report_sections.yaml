@@ -1,0 +1,225 @@
+# Deterministic report templates: the default narrator and the offline fallback lane
+# (PLAN.md §4). Jinja over the facts object only. If a number is not in facts, it cannot appear
+# here, and the numeric-grounding validator proves that on every run.
+#
+# Prose is deliberately short: at most two sentences per section. The figures live in the
+# section's structured `data` payload, which the UI renders as labelled stat rows above the
+# prose. The sentence explains; the payload states.
+#
+# `en`, `hi` and `kn` are kept adjacent deliberately: a translation that drifts from its source
+# is a correctness bug, not a copy problem.
+
+sections:
+  - id: headline
+    heading_en: What we found
+    heading_hi: निष्कर्ष
+    heading_kn: ನಮಗೆ ಕಂಡದ್ದು
+    cites: [finance_engine, census_pc11]
+    body_en: |
+      About {{ n.households_now }} households across {{ n.villages_in_radius }} villages sit
+      within {{ n.radius_km }} km of {{ v.name }}.
+      {% if rec > 0 -%}
+      The scheme formula permits {{ fmt(n.max_loan) }}; our appraisal says borrow
+      {{ fmt(n.recommended_loan) }}.
+      {%- else -%}
+      Our appraisal could not clear any loan size for this unit as costed.
+      {%- endif %}
+    body_hi: |
+      {{ v.name_hi or v.name }} के {{ n.radius_km }} किमी दायरे में {{ n.villages_in_radius }}
+      गाँवों के लगभग {{ n.households_now }} परिवार हैं।
+      {% if rec > 0 -%}
+      योजना का सूत्र {{ fmt(n.max_loan) }} तक ऋण देता है; हमारी सलाह {{ fmt(n.recommended_loan) }} है।
+      {%- else -%}
+      हमारी गणना के अनुसार वर्तमान लागत पर इस इकाई की कोई ऋण राशि नहीं चल सकती।
+      {%- endif %}
+    body_kn: |
+      {{ v.name_kn if v.name_kn is defined and v.name_kn else v.name }} ಸುತ್ತ {{ n.radius_km }} ಕಿಮಿ ಒಳಗೆ
+      {{ n.villages_in_radius }} ಗ್ರಾಮಗಳಲ್ಲಿ ಸುಮಾರು {{ n.households_now }} ಕುಟುಂಬಗಳಿವೆ।
+      {% if rec > 0 -%}
+      ಯೋಜನೆಯ ಸೂತ್ರದ ಪ್ರಕಾರ {{ fmt(n.max_loan) }} ಸಿಗಬಹುದು; ನಮ್ಮ ಅಂದಾಜಿನ ಪ್ರಕಾರ
+      {{ fmt(n.recommended_loan) }} ಸಾಲ ತೆಗೆದುಕೊಳ್ಳಬೇಕು।
+      {%- else -%}
+      ಪ್ರಸ್ತುತ ವೆಚ್ಚಕ್ಕೆ ಈ ಘಟಕಕ್ಕೆ ಯಾವುದೇ ಸಾಲದ ಮೊತ್ತ ನಮ್ಮ ಪರಿಶೀಲನೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣವಾಗಲಿಲ್ಲ।
+      {%- endif %}
+
+  - id: market_reach
+    heading_en: Market reach
+    heading_hi: बाज़ार पहुँच
+    heading_kn: ಮಾರುಕಟ್ಟೆ ವ್ಯಾಪ್ತಿ
+    cites: [census_pc11, intercensal_scaling, hces_2023_24]
+    body_en: |
+      About {{ n.households_now }} households live here today, up from {{ n.households_2011 }}
+      in Census 2011. The map and bands below show where they sit; spending on this category
+      runs {{ fmt(n.demand_per_household_low) }}-{{ fmt(n.demand_per_household_high) }} a month
+      per household.
+    body_hi: |
+      आज इस दायरे में लगभग {{ n.households_now }} परिवार हैं, जनगणना 2011 में {{ n.households_2011 }}
+      थे। नीचे का नक्शा दिखाता है कि वे कहाँ हैं; इस श्रेणी पर प्रति परिवार मासिक खर्च
+      {{ fmt(n.demand_per_household_low) }}-{{ fmt(n.demand_per_household_high) }} आँका गया है।
+    body_kn: |
+      ಇಂದು ಇಲ್ಲಿ ಸುಮಾರು {{ n.households_now }} ಕುಟುಂಬಗಳಿವೆ, 2011ರ ಜನಗಣತಿಯಲ್ಲಿ {{ n.households_2011 }}
+      ಇದ್ದವು। ಕೆಳಗಿನ ನಕ್ಷೆ ಅವು ಎಲ್ಲಿವೆ ಎಂದು ತೋರಿಸುತ್ತದೆ; ಈ ವರ್ಗದ ಮೇಲೆ ಪ್ರತಿ ಕುಟುಂಬಕ್ಕೆ
+      ತಿಂಗಳಿಗೆ {{ fmt(n.demand_per_household_low) }}-{{ fmt(n.demand_per_household_high) }} ಖರ್ಚಾಗುತ್ತದೆ।
+
+  - id: competition
+    heading_en: Competition
+    heading_hi: प्रतिस्पर्धा
+    heading_kn: ಸ್ಪರ್ಧೆ
+    cites: [economic_census_2013, openstreetmap]
+    body_en: |
+      We estimate {{ n.competitors_low }}-{{ n.competitors_high }} enterprises in this category
+      within {{ n.radius_km }} km; OpenStreetMap shows only {{ n.competitors_observed_osm }}, so
+      treat this as a band, not a count.
+      {% for note in competitor_notes %}{{ note }} {% endfor %}
+    body_hi: |
+      {{ n.radius_km }} किमी में इस श्रेणी की अनुमानित {{ n.competitors_low }}-{{ n.competitors_high }}
+      इकाइयाँ हैं; OpenStreetMap में केवल {{ n.competitors_observed_osm }} दर्ज हैं, इसलिए इसे
+      श्रेणी मानें, गिनती नहीं।
+      {% for note in competitor_notes %}{{ note }} {% endfor %}
+    body_kn: |
+      {{ n.radius_km }} ಕಿಮಿ ಒಳಗೆ ಈ ವರ್ಗದ ಸುಮಾರು {{ n.competitors_low }}-{{ n.competitors_high }}
+      ಘಟಕಗಳಿವೆ ಎಂದು ನಮ್ಮ ಅಂದಾಜು; OpenStreetMap ನಲ್ಲಿ ಕೇವಲ {{ n.competitors_observed_osm }}
+      ದಾಖಲಾಗಿವೆ, ಆದ್ದರಿಂದ ಇದನ್ನು ವ್ಯಾಪ್ತಿ ಎಂದು ಪರಿಗಣಿಸಿ, ಎಣಿಕೆ ಅಲ್ಲ।
+      {% for note in competitor_notes %}{{ note }} {% endfor %}
+
+  - id: loan_structure
+    heading_en: How much you can borrow, and how much you should
+    heading_hi: कितना ऋण मिल सकता है, और कितना लेना चाहिए
+    heading_kn: ಎಷ್ಟು ಸಾಲ ಸಿಗಬಹುದು, ಎಷ್ಟು ತೆಗೆದುಕೊಳ್ಳಬೇಕು
+    cites: [finance_engine, nabard_templates]
+    body_en: |
+      {% if rec > 0 -%}
+      We recommend {{ fmt(n.recommended_loan) }}. {{ binding_reason_en }}
+      {%- else -%}
+      No loan size clears the appraisal test as costed.
+      {%- endif %}
+    body_hi: |
+      {% if rec > 0 -%}
+      हम {{ fmt(n.recommended_loan) }} की सलाह देते हैं। {{ binding_reason_hi }}
+      {%- else -%}
+      वर्तमान लागत पर कोई ऋण राशि मानक पर खरी नहीं उतरती।
+      {%- endif %}
+    body_kn: |
+      {% if rec > 0 -%}
+      ನಾವು {{ fmt(n.recommended_loan) }} ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ. {{ binding_reason_kn }}
+      {%- else -%}
+      ಪ್ರಸ್ತುತ ವೆಚ್ಚಕ್ಕೆ ಯಾವುದೇ ಸಾಲದ ಮೊತ್ತ ನಮ್ಮ ಪರಿಶೀಲನೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣವಾಗುತ್ತಿಲ್ಲ।
+      {%- endif %}
+
+  - id: repayment
+    heading_en: Repayment schedule
+    heading_hi: चुकौती अनुसूची
+    heading_kn: ಮರುಪಾವತಿ ವೇಳಾಪಟ್ಟಿ
+    cites: [finance_engine, nsfdc_term_loan, nsfdc_micro_finance]
+    body_en: |
+      {% if rec > 0 -%}
+      {{ scheme.scheme_name }} repays over {{ n.tenure_years }} years: {{ n.total_quarters }}
+      quarters, of which the first {{ n.moratorium_quarters }} are a moratorium. At the
+      recommended loan that is {{ fmt(n.quarterly_instalment_recommended) }} a quarter and
+      {{ fmt(n.total_interest_recommended) }} total interest.
+      {%- else -%}
+      No schedule is shown because no loan size clears the appraisal test.
+      {%- endif %}
+    body_hi: |
+      {% if rec > 0 -%}
+      {{ scheme.scheme_name_hi }} में चुकौती {{ n.tenure_years }} वर्ष की है: कुल {{ n.total_quarters }}
+      तिमाही, जिनमें पहली {{ n.moratorium_quarters }} अधिस्थगन की हैं। अनुशंसित ऋण पर किस्त
+      {{ fmt(n.quarterly_instalment_recommended) }} प्रति तिमाही और कुल ब्याज
+      {{ fmt(n.total_interest_recommended) }} है।
+      {%- else -%}
+      कोई अनुसूची नहीं, क्योंकि कोई ऋण राशि मानक पर खरी नहीं उतरती।
+      {%- endif %}
+    body_kn: |
+      {% if rec > 0 -%}
+      {{ scheme.scheme_name_kn if scheme.scheme_name_kn is defined else scheme.scheme_name }} ಸಾಲವನ್ನು
+      {{ n.tenure_years }} ವರ್ಷಗಳಲ್ಲಿ ಮರುಪಾವತಿ ಮಾಡಬೇಕು: ಒಟ್ಟು {{ n.total_quarters }}
+      ತ್ರೈಮಾಸಿಕಗಳು, ಅವುಗಳಲ್ಲಿ ಮೊದಲ {{ n.moratorium_quarters }} ತ್ರೈಮಾಸಿಕಗಳು ಮೊರಟೋರಿಯಂ.
+      ಶಿಫಾರಸು ಮಾಡಿದ ಸಾಲಕ್ಕೆ ಪ್ರತಿ ತ್ರೈಮಾಸಿಕಕ್ಕೆ ಕಂತು
+      {{ fmt(n.quarterly_instalment_recommended) }} ಮತ್ತು ಒಟ್ಟು ಬಡ್ಡಿ
+      {{ fmt(n.total_interest_recommended) }}.
+      {%- else -%}
+      ಯಾವುದೇ ಸಾಲದ ಮೊತ್ತ ನಮ್ಮ ಪರಿಶೀಲನೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣವಾಗದ ಕಾರಣ ವೇಳಾಪಟ್ಟಿ ತೋರಿಸಿಲ್ಲ.
+      {%- endif %}
+
+  - id: stress
+    heading_en: What happens in a bad year
+    heading_hi: खराब वर्ष में क्या होगा
+    heading_kn: ಕೆಟ್ಟ ವರ್ಷದಲ್ಲಿ ಏನಾಗುತ್ತದೆ
+    cites: [finance_engine, nabard_templates]
+    body_en: |
+      The unit keeps {{ fmt(n.monthly_net) }} a month after operating costs.
+      We do not predict failure; we stress this cash flow with revenue 15% and 30% below plan
+      and show where coverage breaks.
+    body_hi: |
+      परिचालन खर्च के बाद इकाई मासिक {{ fmt(n.monthly_net) }} बचाती है।
+      हम विफलता की भविष्यवाणी नहीं करते; हम इस नकदी प्रवाह पर 15% और 30% कम आय का दबाव डालकर
+      दिखाते हैं कि कहाँ टूटता है।
+    body_kn: |
+      ನಡೆಸುವ ವೆಚ್ಚಗಳ ನಂತರ ಘಟಕ ತಿಂಗಳಿಗೆ {{ fmt(n.monthly_net) }} ಉಳಿಸುತ್ತದೆ.
+      ನಾವು ವಿಫಲತೆಯನ್ನು ಊಹಿಸುವುದಿಲ್ಲ; ಆದಾಯ ಯೋಜನೆಗಿಂತ 15% ಮತ್ತು 30% ಕಡಿಮೆಯಾದರೆ ಈ ನಗದು ಹರಿವಿಗೆ
+      ಒತ್ತಡ ಹಾಕಿ ಎಲ್ಲಿ ಮುರಿಯುತ್ತದೆ ಎಂದು ತೋರಿಸುತ್ತೇವೆ.
+
+  - id: scheme
+    heading_en: Scheme and eligibility
+    heading_hi: योजना एवं पात्रता
+    heading_kn: ಯೋಜನೆ ಮತ್ತು ಅರ್ಹತೆ
+    cites: [mosje_corporations]
+    body_en: |
+      {{ scheme.scheme_name }} at {{ '%g'|format(n.annual_rate_pct) }}% a year. The eligibility
+      verdict and the conditions that shape it are listed below.
+    body_hi: |
+      {{ scheme.scheme_name_hi }}, वार्षिक {{ '%g'|format(n.annual_rate_pct) }}% दर पर। पात्रता का
+      निर्णय और उसे बनाने वाली शर्तें नीचे सूचीबद्ध हैं।
+    body_kn: |
+      {{ scheme.scheme_name_kn if scheme.scheme_name_kn is defined else scheme.scheme_name }},
+      ವರ್ಷಕ್ಕೆ {{ '%g'|format(n.annual_rate_pct) }}% ಬಡ್ಡಿದರದಲ್ಲಿ. ಅರ್ಹತೆಯ ತೀರ್ಮಾನ ಮತ್ತು ಅದನ್ನು
+      ರೂಪಿಸುವ ಷರತ್ತುಗಳನ್ನು ಕೆಳಗೆ ನಮೂದಿಸಲಾಗಿದೆ.
+
+  - id: data_note
+    heading_en: Where these numbers come from
+    heading_hi: ये आँकड़े कहाँ से आए
+    heading_kn: ಈ ಅಂಕಿಅಂಶಗಳು ಎಲ್ಲಿಂದ ಬಂದವು
+    cites: []
+    body_en: |
+      Every figure above is computed by rule-based code from the sources listed in the
+      provenance panel. No figure is generated by a language model.
+      {% if facts.contains_synthetic_data %}
+      This report was produced from synthetic sample data for demonstration. The pipeline, the
+      formulae and the scheme parameters are real; the village and market rows are not.
+      {% endif %}
+    body_hi: |
+      ऊपर का हर आँकड़ा नियम-आधारित कोड से गणना किया गया है और स्रोत पैनल में सूचीबद्ध है।
+      कोई भी आँकड़ा भाषा मॉडल द्वारा नहीं बनाया गया।
+      {% if facts.contains_synthetic_data %}
+      यह रिपोर्ट प्रदर्शन हेतु कृत्रिम नमूना डेटा से बनी है। प्रक्रिया, सूत्र और योजना के नियम वास्तविक हैं;
+      गाँव एवं बाज़ार के आँकड़े नहीं।
+      {% endif %}
+    body_kn: |
+      ಮೇಲಿನ ಪ್ರತಿಯೊಂದು ಅಂಕಿಅಂಶವನ್ನು ನಿಯಮ-ಆಧಾರಿತ ಕೋಡ್ ಮೂಲ ಫಲಕದಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡಿದ ಮೂಲಗಳಿಂದ ಲೆಕ್ಕ ಹಾಕಿದೆ.
+      ಯಾವ ಅಂಕಿಅಂಶವನ್ನೂ ಭಾಷಾ ಮಾದರಿ ರಚಿಸಿಲ್ಲ.
+      {% if facts.contains_synthetic_data %}
+      ಈ ವರದಿಯನ್ನು ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಕೃತಕ ಮಾದರಿ ಡೇಟಾದಿಂದ ತಯಾರಿಸಲಾಗಿದೆ. ಪ್ರಕ್ರಿಯೆ, ಸೂತ್ರಗಳು ಮತ್ತು ಯೋಜನೆಯ ನಿಯಮಗಳು ನಿಜವಾದವು;
+      ಗ್ರಾಮ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಸಾಲುಗಳು ನಿಜವಲ್ಲ.
+      {% endif %}
+
+binding_reason:
+  dscr:
+    en: That level is set by repayment capacity, not by the scheme ceiling.
+    hi: यह सीमा चुकौती क्षमता से तय होती है, योजना की अधिकतम सीमा से नहीं।
+    kn: ಈ ಮೊತ್ತವನ್ನು ಮರುಪಾವತಿ ಸಾಮರ್ಥ್ಯ ನಿರ್ಧರಿಸುತ್ತದೆ, ಯೋಜನೆಯ ಗರಿಷ್ಠ ಮಿತಿಯಲ್ಲ.
+  stress:
+    en: That level is set by what survives a bad year, not by the scheme ceiling.
+    hi: यह सीमा खराब वर्ष झेलने की क्षमता से तय होती है, योजना की अधिकतम सीमा से नहीं।
+    kn: ಈ ಮೊತ್ತವನ್ನು ಕೆಟ್ಟ ವರ್ಷವನ್ನು ತಾಳಿಕೊಳ್ಳುವ ಸಾಮರ್ಥ್ಯ ನಿರ್ಧರಿಸುತ್ತದೆ, ಯೋಜನೆಯ ಗರಿಷ್ಠ ಮಿತಿಯಲ್ಲ.
+  capital_need:
+    en: That is simply what the unit costs. Borrowing more would add interest without adding capacity.
+    hi: यही इकाई की वास्तविक आवश्यकता है। अधिक ऋण से केवल ब्याज बढ़ेगा, क्षमता नहीं।
+    kn: ಇದು ಘಟಕದ ನಿಜವಾದ ಅಗತ್ಯ. ಹೆಚ್ಚು ಸಾಲ ತೆಗೆದುಕೊಂಡರೆ ಬಡ್ಡಿ ಮಾತ್ರ ಹೆಚ್ಚಾಗುತ್ತದೆ, ಸಾಮರ್ಥ್ಯ ಹೆಚ್ಚುವುದಿಲ್ಲ.
+  scheme_cap:
+    en: That is the scheme ceiling; the unit could productively use more than the scheme allows.
+    hi: यह योजना की अधिकतम सीमा है; इकाई इससे अधिक राशि का उपयोग कर सकती थी।
+    kn: ಇದು ಯೋಜನೆಯ ಗರಿಷ್ಠ ಮಿತಿ; ಘಟಕ ಇದಕ್ಕಿಂತ ಹೆಚ್ಚು ಮೊತ್ತವನ್ನು ಉಪಯೋಗಿಸಬಹುದಿತ್ತು.
+  not_viable:
+    en: No loan size clears the appraisal test at the current cost and price assumptions.
+    hi: वर्तमान लागत एवं मूल्य मान्यताओं पर कोई भी ऋण राशि मानक पर खरी नहीं उतरती।
+    kn: ಪ್ರಸ್ತುತ ವೆಚ್ಚ ಮತ್ತು ಬೆಲೆ ಊಹೆಗಳಿಗೆ ಯಾವುದೇ ಸಾಲದ ಮೊತ್ತ ನಮ್ಮ ಪರಿಶೀಲನೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣವಾಗುವುದಿಲ್ಲ.
